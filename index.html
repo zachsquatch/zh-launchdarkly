@@ -36,6 +36,16 @@
       ldclient.on('ready', render);
       ldclient.on('change', render);
     </script>
+    <script>
+    const menuToggle = document.querySelector('.toggle');
+      const showcase = document.querySelector('.showcase');
+
+      menuToggle.addEventListener('click', () => {
+        menuToggle.classList.toggle('active');
+        showcase.classList.toggle('active');
+      })
+    </script>
+
      <section class="showcase">
     <header>
       <h2 class="logo">New Dirt Event Services</h2>
