@@ -5,6 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge;chrome=1">
     <title>LaunchDarkly tutorial</title>
     <link rel="stylesheet" href="app.css">
+     <script>
+    const menuToggle = document.querySelector('.toggle');
+      const showcase = document.querySelector('.showcase');
+
+      menuToggle.addEventListener('click', () => {
+        menuToggle.classList.toggle('active');
+        showcase.classList.toggle('active');
+      })
+    </script>
     <!-- Use LaunchDarkly sdk -->
     <script src="https://unpkg.com/launchdarkly-js-client-sdk@2"></script>
   </head>
@@ -35,16 +44,6 @@
       ldclient.on('ready', render);
       ldclient.on('change', render);
     </script>
-    <script>
-    const menuToggle = document.querySelector('.toggle');
-      const showcase = document.querySelector('.showcase');
-
-      menuToggle.addEventListener('click', () => {
-        menuToggle.classList.toggle('active');
-        showcase.classList.toggle('active');
-      })
-    </script>
-
      <section class="showcase">
     <header>
       <h2 class="logo">New Dirt Event Services</h2>
