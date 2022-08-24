@@ -48,8 +48,12 @@
       ldclient.on('failed', () => {
         div.appendChild(document.createTextNode('SDK failed to initialize'), div.firstChild);
       });
-      ldclient.on('ready', render);
-      ldclient.on('change', render);
+      ldclient.on('ready', function() {
+      document.getElementById("flag").innerHTML = ldclient.variation("pricing-page-menu-item", false);      
+      });
+      ldclient.on('change', function(newVal, prevVal) {
+      document.getElementById("flag").innerHTML = newVal;
+      });
 
 
       // Here we ensure that the SDK shuts down cleanly and has a chance
@@ -91,25 +95,25 @@
     </ul>
   </div>
   </body>
-      <script>
-    const menuToggle = document.querySelector('.toggle');
-      const showcase = document.querySelector('.showcase');
-
-      menuToggle.addEventListener('click', () => {
-        menuToggle.classList.toggle('active');
-        showcase.classList.toggle('active');
-      })
-    </script>
     <script>
+    const menuToggle = document.querySelector('.toggle');
+    const showcase = document.querySelector('.showcase');
+
+    menuToggle.addEventListener('click', () => {
+    menuToggle.classList.toggle('active');
+    showcase.classList.toggle('active');
+    })
+    </script>
+    //<script>
     // Wait for client to initialize, before checking flag variations
-    ldclient.on("ready", function() {
-      document.getElementById("flag").innerHTML = ldclient.variation("pricing-page-menu-item", false);      
-    });
+    //ldclient.on("ready", function() {
+    //document.getElementById("flag").innerHTML = ldclient.variation("pricing-page-menu-item", false);      
+    //});
     
     // Listen for changes to the flag. Update in realtime when it changes.
-    ldclient.on("change:pricing-page-menu-item", function(newVal, prevVal) {
-      document.getElementById("flag").innerHTML = newVal;
-    });
+    //ldclient.on("change:pricing-page-menu-item", function(newVal, prevVal) {
+    //document.getElementById("flag").innerHTML = newVal;
+    //});
 
-    </script>
+    //</script>
 </html>
