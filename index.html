@@ -10,6 +10,51 @@
 
   <body>
 
+    <script>
+    function main()
+    {
+      // Set clientSideID to your LaunchDarkly client-side ID
+      const clientSideID = '62faa1d22f70bb1124c752d9';
+
+      // Set flagKey to the feature flag key you want to evaluate
+      const flagKey = 'get-quote-hero-button';
+
+      // Set up the user properties. This user should appear on your
+      // LaunchDarkly users dashboard soon after you run the demo.
+      const user = {
+        'key': '1234',
+        'name': 'Zach',
+      };
+     
+      const ldclient = LDClient.initialize(clientSideID, user);
+      
+      function updateFlagStatus(flagValue) {
+      const heroButton = document.getElementById("heroButton")
+      if (flagValue) {
+        heroButton.enabled = true;
+        heroButton.innerText = "Get Quote";
+      } else {
+        heroButton.enabled = false;
+        heroButton.innerText = "Contact Us";
+      }
+      };
+      
+      ldclient.on('ready', updateFlagStatus);
+      ldclient.on('change', updateFlagStatus);
+
+
+      // Here we ensure that the SDK shuts down cleanly and has a chance
+      // to deliver analytics envets to LaunchDarkly before the program
+      // exits. If analytics events are not delivered, the user properties
+      // and flag usage statistics will not appear on your dashboard.
+      // In a normal long-running application, the SDK would continue
+      // running and events would be delivered automatically in the background.
+      ldclient.close();
+      
+      }
+    main();
+    </script>
+        
     <section class="showcase">
 
     <header>
@@ -43,41 +88,6 @@
     </ul>
   </div>
   </body>
-  <script>
-  
-      // Set clientSideID to your LaunchDarkly client-side ID
-      const clientSideID = '62faa1d22f70bb1124c752d9';
-
-      // Set flagKey to the feature flag key you want to evaluate
-      const flagKey = 'get-quote-hero-button';
-
-      // Set up the user properties. This user should appear on your
-      // LaunchDarkly users dashboard soon after you run the demo.
-      const user = {
-        'key': '1234',
-        'name': 'Zach',
-      };
-     
-      ldclient.on('initialized', () => {
-        div.appendChild(document.createTextNode('SDK successfully initialized!'), div.firstChild);
-      });
-      ldclient.on('failed', () => {
-        div.appendChild(document.createTextNode('SDK failed to initialize'), div.firstChild);
-      });
-      ldclient.on('ready', render);
-      ldclient.on('change', render);
-      
-      function updateFlagStatus(flagValue) {
-      const heroButton = document.getElementById("heroButton")
-      if (flagValue) {
-        heroButton.enabled = true;
-        heroButton.innerText = "Get Quote";
-      } else {
-        heroButton.enabled = false;
-        heroButton.innerText = "Contact Us";
-      }
-        
-  </script>
       
   <script>
     const menuToggle = document.querySelector('.toggle');
