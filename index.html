@@ -3,11 +3,11 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge;chrome=1">
-    <title>LaunchDarkly tutorial</title>
+    <title>LaunchDarkly SE Homework</title>
     <link rel="stylesheet" href="app.css">
-    <!-- Use LaunchDarkly sdk -->
     <script src="https://unpkg.com/launchdarkly-js-client-sdk@2"></script>
   </head>
+  
   <body>
    <script>
     function main()
@@ -21,8 +21,8 @@
       // Set up the user properties. This user should appear on your
       // LaunchDarkly users dashboard soon after you run the demo.
       const user = {
-        'key': 'example-user-key',
-        'name': 'Zach'
+        'key': '1234',
+        'name': 'Zach',
       };
 
       var div = document.createElement('div');
@@ -101,12 +101,6 @@
       })
     </script>
     <script>
-    // User is anonymous, but will be uniquely identified
-    // so that subsequent visits obtain the same flag variation
-    var user = { anonymous: true };
-    // Obtain a client-side ID from https://app.launchdarkly.com/settings/projects
-    var ldclient = window.LDClient.initialize("<62faa1d22f70bb1124c752d9>", user);
-    
     // Wait for client to initialize, before checking flag variations
     ldclient.on("ready", function() {
       document.getElementById("flag").innerHTML = ldclient.variation("pricing-page-menu-item", false);      
