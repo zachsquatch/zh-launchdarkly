@@ -10,35 +10,25 @@
   
   <body>
    <script>
-    function main()
-    {
-      // Set clientSideID to your LaunchDarkly client-side ID
-      const clientSideID = '62faa1d22f70bb1124c752d9';
-
-      // Set flagKey to the feature flag key you want to evaluate
-      const flagKey = 'pricing-page-menu-item';
-
-      // Set up the user properties. This user should appear on your
-      // LaunchDarkly users dashboard soon after you run the demo.
-      const user = {
-        'key': '1234',
-        'name': 'Zach',
+      // Set up the user properties. This user should appear on your LaunchDarkly users dashboard
+      // soon after you run the demo.
+      var user = {
+        name: 'Zach',
+        key: '1234',
       };
 
       var div = document.createElement('div');
       document.body.appendChild(div);
+
       div.appendChild(document.createTextNode('Initializing...'));
 
-      if (clientSideID === '62faa1d22f70bb1124c752d9') {
-        div.replaceChild(document.createTextNode('Please edit index.html to set clientSideID to your LaunchDarkly client-side ID first'), div.firstChild);
-        return;
-      }
-
-      const ldclient = LDClient.initialize(clientSideID, user);
+      // Create a new LDClient instance with your environment-specific SDK key
+      var ldclient = LDClient.initialize('62faa1d22f70bb1124c752d9', user);
 
       function render() {
-        const flagValue = ldclient.variation(flagKey, false);
-        const label = 'Feature flag ' + flagKey + ' is ' + flagValue + ' for this user';
+        var flagValue = ldclient.variation('pricing-page-menu-item', false);
+        var label = (flagValue ? 'Showing' : 'Not showing') + ' your feature to ' + user.key;
+        console.log("SDK successfully connected! The value of pricing-page-menu-item is " + flagValue + " for " + user.key)
         div.replaceChild(document.createTextNode(label), div.firstChild);
       }
 
@@ -104,16 +94,4 @@
     showcase.classList.toggle('active');
     })
     </script>
-    //<script>
-    // Wait for client to initialize, before checking flag variations
-    //ldclient.on("ready", function() {
-    //document.getElementById("flag").innerHTML = ldclient.variation("pricing-page-menu-item", false);      
-    //});
-    
-    // Listen for changes to the flag. Update in realtime when it changes.
-    //ldclient.on("change:pricing-page-menu-item", function(newVal, prevVal) {
-    //document.getElementById("flag").innerHTML = newVal;
-    //});
-
-    //</script>
 </html>
